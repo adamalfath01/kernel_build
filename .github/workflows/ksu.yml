@@ -23,7 +23,7 @@ jobs:
         run: |
           git clone --depth=1 -b lineage-19.1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9.git aarch64-linux-android-4.9
           git clone --depth=1 -b lineage-19.1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_arm_arm-linux-androideabi-4.9.git arm-linux-androideabi-4.9
-          mkdir clang && curl https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+/refs/heads/main/clang-r498229b.tar.gz -RLO && tar -C clang/ -xf clang-*.tar.gz
+          git clone --depth=1 https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86 clang
 
       - name: Pull kernel source
         run: |
@@ -34,7 +34,7 @@ jobs:
         run: |
           export KBUILD_BUILD_USER="@roniwae"
           export KBUILD_BUILD_HOST="github"
-          export PATH=$GITHUB_WORKSPACE/clang/bin:${PATH}
+          export PATH=$GITHUB_WORKSPACE/clang/clang-r498229b/bin:${PATH}
           args="                  ARCH=arm64 \
                                   O=../out \
                                   ${{ env.BUILD_ARGS }} \
