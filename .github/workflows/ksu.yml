@@ -36,7 +36,7 @@ jobs:
           export KBUILD_BUILD_HOST="github"
           export PATH=$GITHUB_WORKSPACE/clang/clang-r498229b/bin:${PATH}
           args="                  ARCH=arm64 \
-                                  O=../out \
+                                  O=out \
                                   ${{ env.BUILD_ARGS }} \
                                   CLANG_TRIPLE=aarch64-linux-gnu- \
                                   CROSS_COMPILE=$GITHUB_WORKSPACE/aarch64-linux-android-4.9/bin/aarch64-linux-android- \
@@ -44,7 +44,7 @@ jobs:
           cd kernel-source
           curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s main
           git apply KernelSU-hook.patch
-          make 0=../out ARCH=arm64 vendor/ginkgo-perf_defconfig
+          make 0=out ARCH=arm64 vendor/ginkgo-perf_defconfig
           make -j$(($(getconf _NPROCESSORS_ONLN) * 2)) ${args}
 
       - name: Package kernel
